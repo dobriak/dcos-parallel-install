@@ -3,8 +3,8 @@ source cluster.conf
 IPDETECT="curl -fsSL http://169.254.169.254/latest/meta-data/local-ipv4"
 IPDETECT_PUB="curl -fsSL https://ipinfo.io/ip"
 
-echo "Getting 1.8.8 installer"
-wget https://downloads.dcos.io/dcos/stable/commit/602edc1b4da9364297d166d4857fc8ed7b0b65ca/dcos_generate_config.sh
+echo "Downloading installer"
+wget -O dcos_generate_config.sh ${DOWNLOAD_URL}
 
 sudo systemctl stop firewalld && sudo systemctl disable firewalld
 echo "Installing nginx"
@@ -41,7 +41,7 @@ fi
 echo "Writing config.yaml"
 cat <<EOF >genconf/config.yaml
 bootstrap_url: http://${BOOTSTRAP_IP}:${BOOTSTRAP_PORT}
-cluster_name: DCOS188
+cluster_name: DCOS110b1
 exhibitor_storage_backend: static
 master_discovery: static
 telemetry_enabled: true

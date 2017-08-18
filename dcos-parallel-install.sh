@@ -1,7 +1,8 @@
 #!/bin/bash
 source cluster.conf
-AWSKEY="${HOME}/.ssh/ec2default.pem"
-AWSUSER="ec2-user"
+AWSKEY="${HOME}/.ssh/ec2-default.pem"
+#AWSUSER="ec2-user"
+AWSUSER="centos"
 
 function parallel_ssh(){
   local members=${1}
@@ -54,6 +55,11 @@ function wait_sessions() {
 }
 
 # Main
+if [ ! -f ${AWSKEY} ]; then
+    echo "${AWSKEY} key not found."
+    exit 1
+fi
+
 echo "Starting tmux..."
 tmux start-server
 tmux new-session -d -s tester
